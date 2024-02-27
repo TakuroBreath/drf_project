@@ -1,6 +1,6 @@
 from django.db import models
 
-from users.models import NULLABLE
+NULLABLE = {'blank': 'True', 'null': 'True'}
 
 
 # Create your models here.
@@ -23,4 +23,4 @@ class Lesson(models.Model):
     preview = models.ImageField(verbose_name='Lesson Preview', **NULLABLE)
     video_url = models.URLField(verbose_name='Video URL')
 
-    course = models.ForeignKey(Course, related_name='Course', on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, verbose_name='Course', on_delete=models.CASCADE)

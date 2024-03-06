@@ -2,7 +2,6 @@ from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 
 from lessons.models import Lesson, Course
-from users.models import Payment
 
 
 # Serializers define the API representation.
@@ -24,9 +23,3 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ['name', 'description', 'lessons', 'lessons_count']
-
-
-class PaymentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Payment
-        fields = '__all__'

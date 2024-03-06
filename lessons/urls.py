@@ -3,6 +3,7 @@ from rest_framework.routers import DefaultRouter
 
 from lessons.apps import LessonsConfig
 from lessons.views import *
+from users.views import PaymentListAPIView
 
 app_name = LessonsConfig.name
 

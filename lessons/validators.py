@@ -6,7 +6,7 @@ class LessonCustomValidator:
         self.field = field
 
     def __call__(self, value):
-        result = "youtube.com" in value.lower()
+        result = "youtube.com" in str(value).lower()
 
         if not result:
             message = "The link should lead to youtube.com"

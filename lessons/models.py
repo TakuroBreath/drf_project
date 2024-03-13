@@ -27,3 +27,23 @@ class Lesson(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, **NULLABLE)
 
     course = models.ForeignKey(Course, verbose_name='Course', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Lesson"
+        verbose_name_plural = "Lessons"
+
+
+class Subscription(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name='User')
+    course = models.ForeignKey(Course, verbose_name='Course', on_delete=models.CASCADE)
+    is_active = models.BooleanField(default=True, verbose_name="Is Active")
+
+    def __str__(self):
+        return f'Sub on {self.course}, U: {self.user}'
+
+    class Meta:
+        verbose_name = "Subscription"
+        verbose_name_plural = "Subscriptions"

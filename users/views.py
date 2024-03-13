@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from users.models import Payment, User
+from users.permissions import IsModerator
 from users.serializers import PaymentSerializer, UserSerializer
 
 
@@ -14,8 +15,10 @@ class PaymentListAPIView(ListAPIView):
     filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ('paid_course', 'paid_lesson', 'payment_method')
     ordering_fields = ('date_of_payment',)
+    permission_classes = [IsAuthenticated]
 
 
 class UserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [IsModerator]

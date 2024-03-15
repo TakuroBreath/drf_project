@@ -6,8 +6,9 @@ class LessonCustomValidator:
         self.field = field
 
     def __call__(self, value):
-        result = "youtube.com" in str(value).lower()
-
-        if not result:
-            message = "The link should lead to youtube.com"
-            raise serializers.ValidationError(message)
+        val = value.get(self.field)
+        if val:
+            result = "youtube.com" in val.lower()
+            if not result:
+                message = "The link should lead to youtube.com"
+                raise serializers.ValidationError(message)

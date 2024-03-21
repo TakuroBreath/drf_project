@@ -25,6 +25,8 @@ class Payment(models.Model):
     paid_course = models.ForeignKey(Course, on_delete=models.SET_NULL, **NULLABLE)
     paid_lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, **NULLABLE)
     amount = models.IntegerField(verbose_name='amount')
+    payment_link = models.URLField(verbose_name='payment_link', max_length=300, **NULLABLE)
+    payment_id = models.CharField(verbose_name='payment_id', max_length=100, **NULLABLE)
 
     payment_method_choices = [
         ("cash", "Cash Payment"),

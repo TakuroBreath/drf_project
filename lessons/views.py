@@ -11,6 +11,8 @@ from lessons.permissions import IsOwner
 from lessons.serializers import CourseSerializer, LessonSerializer
 from users.permissions import IsModerator
 
+from lessons.tasks import update_message
+
 
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
@@ -27,6 +29,11 @@ class CourseViewSet(ModelViewSet):
         elif self.action == 'destroy':
             return [IsOwner]
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        update_course = serializer.save()
+        update_message.delay(update_course.id)
+        update_course.save()
 
 
 class LessonRetrieveAPIView(RetrieveAPIView):
@@ -55,7 +62,7 @@ class LessonDeleteAPIView(DestroyAPIView):
 class LessonUpdateAPIView(UpdateAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
-    permission_classes = [IsModerator | IsOwner ]
+    permission_classes = [IsModerator | IsOwner]
 
 
 class LessonCreateAPIView(CreateAPIView):

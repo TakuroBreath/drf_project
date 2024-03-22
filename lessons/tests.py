@@ -88,18 +88,15 @@ class LessonTestCase(APITestCase):
             data['name']
         )
 
-    def test_update_lesson(self):
-        lesson = Lesson.objects.create(
-            name='Test_lesson',
+    def test_update_course(self):
+        course = Course.objects.create(
+            name='Test_course1212',
             description='Test_lesson',
-            video_url="https://www.youtube.com/watch",
-            owner=self.user,
-            course=self.course
         )
 
         response = self.client.patch(
-            f'/{lesson.id}/update/',
-            {'description': 'Changed', 'video_url': 'https://www.youtube.com/watch'}
+            f'/courses/{course.id}/',
+            {'description': 'Changed'}
         )
 
         print(response)

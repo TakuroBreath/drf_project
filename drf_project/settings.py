@@ -182,12 +182,23 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
 )
 
-CELERY_BROKER_URL = 'redis://localhost:6379'  # Redis connection
+CELERY_BROKER_URL = os.getenv('REDIS_BACKEND')  # Redis connection
 
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = os.getenv('REDIS_BACKEND')
 
 CELERY_TIMEZONE = "Europe/Moscow"
 
 CELERY_TASK_TRACK_STARTED = True
 
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.getenv('EMAIL')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS')
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

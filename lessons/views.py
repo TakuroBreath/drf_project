@@ -17,7 +17,6 @@ from lessons.tasks import update_message
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
-    permission_classes = [IsAuthenticated]
     pagination_class = CoursePagination
 
     def perform_create(self, serializer):
@@ -25,10 +24,10 @@ class CourseViewSet(ModelViewSet):
 
     def get_permissions(self):
         if self.action == 'update' or self.action == 'partial_update' or self.action == 'retrieve':
-            return [IsModerator | IsOwner]
+            permission_classes = [IsAuthenticated, IsModerator | IsOwner]
         elif self.action == 'destroy':
-            return [IsOwner]
-        return super().get_permissions()
+            permission_classes = [IsAuthenticated, IsOwner]
+        return [permission() for permission in permission_classes]
 
     def perform_update(self, serializer):
         update_course = serializer.save()

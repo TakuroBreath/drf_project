@@ -92,8 +92,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'postgres',
-        'NAME': os.getenv('DB_NAME'),
-        'PASSWORD': os.getenv('DB_PASS'),
+        'NAME': 'drfdocker',
+        'PASSWORD': 'mysecretpassword',
+        'HOST': 'db'
     }
 }
 
@@ -182,9 +183,9 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
 )
 
-CELERY_BROKER_URL = os.getenv('REDIS_BACKEND')  # Redis connection
+CELERY_BROKER_URL = 'redis://redis:6379/0'  # Redis connection
 
-CELERY_RESULT_BACKEND = os.getenv('REDIS_BACKEND')
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
 CELERY_TIMEZONE = TIME_ZONE
 

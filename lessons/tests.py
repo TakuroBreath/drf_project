@@ -99,7 +99,6 @@ class LessonTestCase(APITestCase):
             {'description': 'Changed'}
         )
 
-        print(response)
         self.assertEqual(
             response.status_code,
             status.HTTP_200_OK

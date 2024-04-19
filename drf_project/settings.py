@@ -91,10 +91,11 @@ WSGI_APPLICATION = 'drf_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'USER': 'postgres',
-        'NAME': 'drfdocker',
-        'PASSWORD': 'mysecretpassword',
-        'HOST': 'db'
+        'NAME': os.getenv('POSTGRES_DB'),
+        'USER': os.getenv('POSTGRES_USER'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+        'HOST': os.getenv('POSTGRES_HOST'),
+        'PORT': os.getenv('POSTGRES_PORT')
     }
 }
 
@@ -183,9 +184,11 @@ CORS_ALLOW_HEADERS = (
     "x-requested-with",
 )
 
-CELERY_BROKER_URL = 'redis://redis:6379/0'  # Redis connection
+REDIS_HOST = os.getenv('REDIS_HOST')
+REDIS_PORT = os.getenv('REDIS_PORT')
 
-CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 
 CELERY_TIMEZONE = TIME_ZONE
 

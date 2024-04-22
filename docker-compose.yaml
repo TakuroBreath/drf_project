@@ -10,9 +10,6 @@ services:
     image: postgres:14.7-alpine
     env_file:
       - .env
-    environment:
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
       - pg_data:/var/lib/postgresql/data/pgdata
     ports:
